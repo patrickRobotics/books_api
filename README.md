@@ -1,24 +1,23 @@
-# README
+# RUBY API app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Some concepts of rubby api bootstrap application
 
-Things you may want to cover:
 
-* Ruby version
+## Jbuilder
+Why Jbuilder:
+* Stick with the rails way
+* JSON representation belongs to view layer
+* Include unrelated models &/or non-model data in a single request
+* Creating a complex JSON objects
+* Use helper methods and partials
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Rabl Gem
+WHy Rabl:
+* Serialize into other formats beside JSON
+* Data representation is handled by view layer
+* Include unrelated models &/or non-model data in a single request
+* Creating complex JSON objects
+* Use helper methods
+* Inheritance to reduce code duplication
+* When using non-Rails framework (Sinatra, Padrino)
+* Good documentation

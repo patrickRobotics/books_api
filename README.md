@@ -12,7 +12,7 @@ Why Jbuilder:
 * Use helper methods and partials
 
 ## Rabl Gem
-WHy Rabl:
+Why Rabl:
 * Serialize into other formats beside JSON
 * Data representation is handled by view layer
 * Include unrelated models &/or non-model data in a single request
@@ -20,4 +20,4 @@ WHy Rabl:
 * Use helper methods
 * Inheritance to reduce code duplication
 * When using non-Rails framework (Sinatra, Padrino)
-* Good documentation
+* Good (documentation)[https://github.com/nesquena/rabl]

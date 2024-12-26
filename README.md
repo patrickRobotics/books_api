@@ -54,3 +54,92 @@ Why JSON:API with AMS gem?
 * Model related links
 * Deserialization
 JSON API (documentation)[https://github.com/rails-api/active_model_serializers/blob/0-10-stable/docs/jsonapi/schema.md]
+
+JSON API example request: `localhost:3000/books.json?include=authors&fields[books]=title,num_pages&fields[authors]=full_name,foo&page[size]=2`
+```javascript
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "books",
+            "attributes": {
+                "title": "Harry Porter Collections",
+                "num_pages": 3342
+            },
+            "links": {
+                "self": "/books/1",
+                "authors": "/authors?book_id=1"
+            }
+        },
+        {
+            "id": "2",
+            "type": "books",
+            "attributes": {
+                "title": "The Hitchhiker's Guide to the Galaxy",
+                "num_pages": 815
+            },
+            "links": {
+                "self": "/books/2",
+                "authors": "/authors?book_id=2"
+            }
+        }
+    ],
+    "included": [
+        {
+            "id": "1",
+            "type": "authors",
+            "attributes": {
+                "full_name": "J. K. Rowling",
+                "foo": "test"
+            }
+        },
+        {
+            "id": "10",
+            "type": "authors",
+            "attributes": {
+                "full_name": "Douglas Adams",
+                "foo": "test"
+            }
+        }
+    ],
+    "links": {
+        "self": "http://localhost:3000/books.json?fields%5Bauthors%5D=full_name%2Cfoo&fields%5Bbooks%5D=title%2Cnum_pages&include=authors&page%5Bnumber%5D=1&page%5Bsize%5D=2",
+        "first": "http://localhost:3000/books.json?fields%5Bauthors%5D=full_name%2Cfoo&fields%5Bbooks%5D=title%2Cnum_pages&include=authors&page%5Bnumber%5D=1&page%5Bsize%5D=2",
+        "prev": null,
+        "next": "http://localhost:3000/books.json?fields%5Bauthors%5D=full_name%2Cfoo&fields%5Bbooks%5D=title%2Cnum_pages&include=authors&page%5Bnumber%5D=2&page%5Bsize%5D=2",
+        "last": "http://localhost:3000/books.json?fields%5Bauthors%5D=full_name%2Cfoo&fields%5Bbooks%5D=title%2Cnum_pages&include=authors&page%5Bnumber%5D=2&page%5Bsize%5D=2"
+    }
+}
+```
+
+Example POST request to create a book: `localhost:3000/books`
+```javascript
+{
+    "data": {
+        "type": "book",
+        "attributes": {
+            "title": "Against All Odds",
+            "num_pages": 142,
+            "language_code": "ar"
+        },
+        "relationships": {
+            "authors": {
+                "data": [
+                    {
+                        "type": "author",
+                        "id": 13
+                    },
+                    {
+                        "type": "author",
+                        "id": 10
+                    },
+                    {
+                        "type": "author",
+                        "id": 14
+                    }
+                ]
+            }
+        }
+    }
+}
+```

@@ -56,6 +56,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.expect(book: [ :title, :isbn, :isbn13, :language_code, :num_pages ])
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:title, :language_code, :num_pages, :authors])
     end
 end

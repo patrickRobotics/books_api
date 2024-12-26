@@ -3,8 +3,10 @@ class BooksController < ApplicationController
 
   # GET /books
   def index
-    @books = Book.all
-    # render json: @books, include: [:authors], fields: {books: [:title, :num_pages], authors: [:full_name, :bar]}
+    @books = Book.all.includes(:authors)
+    # render json: @books,
+    #   include: [:authors],
+    #   fields: {books: [:title, :num_pages], authors: [:full_name, :bar]}
 
     # ?include=authors&fields[books]=title,num_pages&fields[authors]=full_name, foo
     render json: @books,

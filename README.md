@@ -43,7 +43,7 @@ Why JSON:API?
   - only needed fields e.g. fields=[post]=title,body & fields[author]=name
 * Filtering e.g. filter[author_id]=1,2,3
 * Sorting e.g. sort=-created_at, title
-* Pagination e.g. page=[number]=1 & page[size]=30
+* Pagination e.g. page[number]=1 & page[size]=30
 * Add pagination links (by default)
 * Efficient caching
 Why JSON:API with AMS gem?
@@ -143,3 +143,16 @@ Example POST request to create a book: `localhost:3000/books`
     }
 }
 ```
+
+## JSONAPI.rb Gem
+Why JSONAPI.rb gem?
+* Follow hte JSON:API specifications
+* Serializers
+* Less code, less maintenance
+* Ready mixins
+* Support of includes and sparse fields dynamically
+* Filtering and Sorting
+* Pagination Support
+* Error handling
+* caching
+* Deserialization

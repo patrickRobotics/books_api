@@ -1,21 +1,28 @@
 class BooksController < ApplicationController
+  include JSONAPI::Fetching
+  include JSONAPI::Filtering
   before_action :set_book, only: %i[ show update destroy ]
 
   # GET /books
   def index
-    @books = Book
-    .all
-    .includes(:authors)
-    .page(params.dig(:page, :number))  #params[page][number] => &page[number]=2
-    .per(params.dig(:page, :size))     #params[page][size] => &page[size]=10
-    # render json: @books,
-    #   include: [:authors],
-    #   fields: {books: [:title, :num_pages], authors: [:full_name, :bar]}
+    allowed = ['title', 'authors_name']
+    jsonapi_filter(Book.all, allowed) do |filtered|
+      render jsonapi: filtered.result
+    end
 
-    # ?include=authors&fields[books]=title,num_pages&fields[authors]=full_name, foo
-    render json: @books,
-      include: params[:include]&.split(','),
-      fields: params[:fields]&.as_json&.symbolize_keys&.transform_values { |v| v.split(',').map(&:to_sym)}
+    # @books = Book
+    # .all
+    # .includes(:authors)
+    # .page(params.dig(:page, :number))  #params[page][number] => &page[number]=2
+    # .per(params.dig(:page, :size))     #params[page][size] => &page[size]=10
+    # # render json: @books,
+    # #   include: [:authors],
+    # #   fields: {books: [:title, :num_pages], authors: [:full_name, :bar]}
+    #
+    # # ?include=authors&fields[books]=title,num_pages&fields[authors]=full_name, foo
+    # render json: @books,
+    #   include: params[:include]&.split(','),
+    #   fields: params[:fields]&.as_json&.symbolize_keys&.transform_values { |v| v.split(',').map(&:to_sym)}
   end
 
   # GET /books/1
@@ -57,5 +64,9 @@ class BooksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def book_params
       ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:title, :language_code, :num_pages, :authors])
+    end
+
+    def jsonapi_include
+      super & ['authors']
     end
 end

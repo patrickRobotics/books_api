@@ -1,13 +1,6 @@
-class AuthorSerializer < ApplicationSerializer
-  attribute :name, key: :full_name
-  attributes :foo, :bar
-  def foo
-    'test'
-  end
-
-  def bar
-    12345
-  end
+class AuthorSerializer
+  include JSONAPI::Serializer
+  attribute :name
 
   # attribute :private_date, if: :is_owner?
   #

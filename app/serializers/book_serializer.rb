@@ -1,6 +1,5 @@
-class BookSerializer < ApplicationSerializer
-  attributes :title, :language_code, :num_pages
-  link(:self) { book_path(object)}
-  link(:authors) {authors_path(book_id: object.id)}
+class BookSerializer
+  include JSONAPI::Serializer
+  attributes :title, :isbn, :language_code, :num_pages
   has_many :authors
 end
